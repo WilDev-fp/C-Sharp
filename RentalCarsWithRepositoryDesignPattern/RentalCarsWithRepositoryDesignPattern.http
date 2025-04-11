@@ -1,0 +1,6 @@
+@RentalCarsWithRepositoryDesignPattern_HostAddress = http://localhost:5118
+
+GET {{RentalCarsWithRepositoryDesignPattern_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
