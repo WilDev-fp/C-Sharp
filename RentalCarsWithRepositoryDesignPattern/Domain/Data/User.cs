@@ -1,6 +1,6 @@
-﻿namespace RentalCarsWithRepositoryDesignPattern.Domain.Model;
+﻿namespace RentalCarsWithRepositoryDesignPattern.Domain.Data;
 
-public class UserClient
+public class User
 {
     public long Id { get; set; }
     public string Name { get; set; }

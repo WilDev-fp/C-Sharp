@@ -1,6 +1,6 @@
 ﻿using RentalCarsWithRepositoryDesignPattern.Domain.Enumeration;
 
-namespace RentalCarsWithRepositoryDesignPattern.Domain.Model;
+namespace RentalCarsWithRepositoryDesignPattern.Domain.Data;
 
 public class Automobile
 {

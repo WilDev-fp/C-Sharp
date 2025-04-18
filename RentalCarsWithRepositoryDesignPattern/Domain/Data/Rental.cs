@@ -1,4 +1,4 @@
-﻿namespace RentalCarsWithRepositoryDesignPattern.Domain.Model;
+﻿namespace RentalCarsWithRepositoryDesignPattern.Domain.Data;
 
 public class Rental
 {
