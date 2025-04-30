@@ -1,0 +1,63 @@
+# Visual Studio specific files
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Core specific files
+bin/
+obj/
+out/
+*.log
+*.tlog
+*.tmp
+*.pdb
+*.cache
+*.config
+*.csproj.user
+*.csproj.vspscc
+*.csproj.vspscc
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.obj
+*.pch
+*.ilk
+*.pyc
+*.pyo
+*.pid
+*.gz
+*.swp
+
+# IDE specific files
+.idea/
+*.iml
+*.ipr
+*.iws
