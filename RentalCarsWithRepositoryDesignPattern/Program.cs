@@ -1,16 +1,28 @@
 using Microsoft.EntityFrameworkCore;
+using RentalCarsWithRepositoryDesignPattern.Application.IRepositories;
+using RentalCarsWithRepositoryDesignPattern.Application.IServices;
+using RentalCarsWithRepositoryDesignPattern.Application.Services;
+using RentalCarsWithRepositoryDesignPattern.Domain.Data;
 using RentalCarsWithRepositoryDesignPattern.Infrastructure.Context;
-using System;
+using RentalCarsWithRepositoryDesignPattern.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var conString = builder.Configuration.GetConnectionString("RentalDb") ??
      throw new InvalidOperationException("Connection string 'RentalDb'" +
     " not found.");
-builder.Services.AddDbContext<RentalCarContext>(
-    options => {
-        options.UseSqlServer(conString);
-    });
+builder.Services
+    .AddDbContext<RentalCarContext>(
+        options =>
+        {
+            options.UseSqlServer(conString);
+        })
+    .AddTransient<IAutomobileService, AutomobileService>()
+    .AddTransient<IUserService, UserService>()
+    .AddTransient<IRentalService, RentalService>()
+    .AddTransient<IRepositoryBase<Automobile>, AutomobileRepository>()
+    .AddTransient<IRepositoryBase<Rental>, RentalRepository>()
+    .AddTransient<IRepositoryBase<User>, UserRepository>();
 
 // Add services to the container.
 
@@ -20,15 +32,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-/*
-using (var serviceScope = app.Services.CreateScope())
-{
-    var dbContext = serviceScope.ServiceProvider.GetRequiredService<RentalCarContext>();
-    await dbContext.Database.EnsureCreatedAsync();
-    // or dbContext.Database.EnsureCreatedAsync();
-}
-*/
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

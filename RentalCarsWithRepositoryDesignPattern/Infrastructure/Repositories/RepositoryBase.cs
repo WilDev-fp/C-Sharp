@@ -24,22 +24,21 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         return false;
     }
 
-    public IEnumerable<T> GetAll()
+    public async Task<IEnumerable<T>> GetAll()
     {
-        return [.. Table];
+        return await Table.ToListAsync();
     }
 
     public T GetById(long id)
     {
         return Table.Find(id);
     }
-    public bool Insert(T item)
+    public async Task<int> Insert(T item)
     {
-        if (Table.Add(item) is not null)
-        {
-            return true;
-        }
-        return false;
+        ArgumentNullException.ThrowIfNull(item);
+        Table.Add(item);
+        var entitiesAdded = await Context.SaveChangesAsync();
+        return entitiesAdded;
     }
     public bool Update(T item)
     {
@@ -53,10 +52,5 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         {
             return false;
         }
-    }
-
-    public int Save()
-    {
-        return Context.SaveChanges();
     }
 }

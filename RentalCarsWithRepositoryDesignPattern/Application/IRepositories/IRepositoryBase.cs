@@ -2,9 +2,9 @@
 
 public interface IRepositoryBase<T>
 {
-    IEnumerable<T> GetAll();
+    Task<IEnumerable<T>> GetAll();
     T GetById(long id);
-    bool Insert(T item);
+    Task<int> Insert(T item);
     bool Update(T item);
     bool Delete(long id);
 }
