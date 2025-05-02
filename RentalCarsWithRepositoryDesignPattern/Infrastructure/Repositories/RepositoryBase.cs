@@ -14,14 +14,16 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         Table = rentalCarContext.Set<T>();
     }
 
-    public bool Delete(long id)
+    public async Task<int> Delete(long id)
     {
-        T existing = Table.Find(id);
+        T existing = await Table.FindAsync(id);
+
         if (Table.Remove(existing) is not null)
         {
-            return true;
+            var entitiesDeleted = await Context.SaveChangesAsync();
+            return entitiesDeleted;
         }
-        return false;
+        return 0;
     }
 
     public async Task<IEnumerable<T>> GetAll()
@@ -29,9 +31,9 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         return await Table.ToListAsync();
     }
 
-    public T GetById(long id)
+    public async Task<T> GetById(long id)
     {
-        return Table.Find(id);
+        return await Table.FindAsync(id);
     }
     public async Task<int> Insert(T item)
     {

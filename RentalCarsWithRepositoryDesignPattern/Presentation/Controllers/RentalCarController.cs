@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentalCarsWithRepositoryDesignPattern.Application.Dtos;
 using RentalCarsWithRepositoryDesignPattern.Application.IServices;
+using RentalCarsWithRepositoryDesignPattern.Application.Services;
 
 namespace RentalCarsWithRepositoryDesignPattern.Presentation.Controllers;
 
@@ -29,5 +30,22 @@ public class RentalCarController : ControllerBase
     {
         var listCar = await _rentalService.GetAll();
         return Ok(listCar);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] long id)
+    {
+        if (id <= 0)
+        {
+            return Forbid("Id must be a positive number!");
+        }
+        var isDeleted = await _rentalService.Delete(id);
+
+        if (isDeleted)
+        {
+            return Ok($"Rental car with id: {id} was deleted correctly!");
+        }
+
+        return NotFound();
     }
 }

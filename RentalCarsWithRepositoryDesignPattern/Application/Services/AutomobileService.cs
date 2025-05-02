@@ -30,4 +30,22 @@ public class AutomobileService(IRepositoryBase<Automobile> automobileRepository)
         var listCar = await automobileRepository.GetAll();
         return listCar;
     }
+
+    public async Task<bool> Delete(long id) {
+        var car = await automobileRepository.GetById(id);
+
+        if (car is null)
+        {
+            return false;
+        }
+
+        var numberRecordDeleted = await automobileRepository.Delete(id);
+
+        if (numberRecordDeleted != 1)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
