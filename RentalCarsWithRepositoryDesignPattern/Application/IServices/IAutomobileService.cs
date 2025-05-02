@@ -8,4 +8,5 @@ public interface IAutomobileService
     public Task<Automobile> Add(AutomobileDto car);
     public Task<IEnumerable<Automobile>> GetAll();
     public Task<bool> Delete(long id);
+    public Task<bool> Update(long id, AutomobileUpdateDto automobileDto);
 }

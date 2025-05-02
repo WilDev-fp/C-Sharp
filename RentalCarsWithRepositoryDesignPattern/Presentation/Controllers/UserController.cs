@@ -47,4 +47,21 @@ public class UserController : ControllerBase
 
         return NotFound();
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UserUpdateDto userDto)
+    {
+        if (id <= 0)
+        {
+            return Forbid("Id must be a positive number!");
+        }
+        var isUpdated = await _userService.Update(id, userDto);
+
+        if (isUpdated)
+        {
+            return Ok($"User with id: {id} was updated correctly!");
+        }
+
+        return NotFound("User not found or no changes applied.");
+    }
 }

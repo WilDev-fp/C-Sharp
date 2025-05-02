@@ -41,4 +41,21 @@ public class AutomobileController(ILogger<AutomobileController> logger, IAutomob
 
         return NotFound();
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] AutomobileUpdateDto automobileDto)
+    {
+        if (id <= 0)
+        {
+            return Forbid("Id must be a positive number!");
+        }
+        var isDeleted = await _carService.Update(id, automobileDto);
+
+        if (isDeleted)
+        {
+            return Ok($"Car with id: {id} was updated correctly!");
+        }
+
+        return NotFound();
+    }
 }

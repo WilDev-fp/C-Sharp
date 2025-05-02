@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentalCarsWithRepositoryDesignPattern.Application.Dtos;
 using RentalCarsWithRepositoryDesignPattern.Application.IServices;
-using RentalCarsWithRepositoryDesignPattern.Application.Services;
 
 namespace RentalCarsWithRepositoryDesignPattern.Presentation.Controllers;
 
@@ -19,14 +18,14 @@ public class RentalCarController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] RentalCarDto rentalCarDto)
+    public async Task<IActionResult> Add([FromBody] RentalCarDto rentalCarDto)
     {
         var car = await _rentalService.Add(rentalCarDto);
         return Ok(car);
     }
 
     [HttpGet]
-    public async Task<IActionResult> ReadAll()
+    public async Task<IActionResult> GetAll()
     {
         var listCar = await _rentalService.GetAll();
         return Ok(listCar);

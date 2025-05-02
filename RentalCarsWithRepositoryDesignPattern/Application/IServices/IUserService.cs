@@ -8,4 +8,5 @@ public interface IUserService
     public Task<User> Add(UserDto a);
     public Task<IEnumerable<User>> GetAll();
     public Task<bool> Delete(long id);
+    public Task<bool> Update(long id, UserUpdateDto userDto);
 }
