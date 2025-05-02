@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalCarsWithRepositoryDesignPattern", "RentalCarsWithRepositoryDesignPattern\RentalCarsWithRepositoryDesignPattern.csproj", "{6678073A-998A-42CC-89C8-F46E8C0054CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalCarsWithRepositoryDesignPatternTests", "RentalCarsWithRepositoryDesignPatternTest\RentalCarsWithRepositoryDesignPatternTests.csproj", "{57166C9F-468C-4FCB-BE32-0469D9D0DE7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6678073A-998A-42CC-89C8-F46E8C0054CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6678073A-998A-42CC-89C8-F46E8C0054CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6678073A-998A-42CC-89C8-F46E8C0054CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57166C9F-468C-4FCB-BE32-0469D9D0DE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57166C9F-468C-4FCB-BE32-0469D9D0DE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57166C9F-468C-4FCB-BE32-0469D9D0DE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57166C9F-468C-4FCB-BE32-0469D9D0DE7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
