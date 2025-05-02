@@ -7,4 +7,5 @@ public interface IRentalService
 {
     public Task<Rental> Add(RentalCarDto a);
     public Task<IEnumerable<Rental>> GetAll();
+    public Task<bool> Delete(long id);
 }

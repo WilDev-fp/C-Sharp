@@ -32,4 +32,77 @@ public class UserService(IRepositoryBase<User> userRepository) : IUserService
         var listUser = await userRepository.GetAll();
         return listUser;
     }
+
+    public async Task<bool> Delete(long id)
+    {
+        var user = await userRepository.GetById(id);
+        if (user is null)
+        {
+            return false;
+        }
+
+        var numberRecordDeleted = await userRepository.Delete(id);
+
+        if (numberRecordDeleted != 1)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public async Task<bool> Update(long id, UserUpdateDto userDto)
+    {
+        var user = await userRepository.GetById(id);
+        var isUserWithoutChanges = true;
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        if (userDto.Name?.Length > 1)
+        {
+            user.Name = userDto.Name;
+            isUserWithoutChanges = false;
+        }
+
+        if (userDto.Age >= 18 && userDto.Age <= 60)
+        {
+            user.Age = userDto.Age;
+            isUserWithoutChanges = false;
+        }
+
+        if (userDto.MinimumBalance > 0)
+        {
+            user.MinimumBalance = userDto.MinimumBalance;
+            isUserWithoutChanges = false;
+        }
+
+        if (userDto.LastName?.Length > 1)
+        {
+            user.LastName = userDto.LastName;
+            isUserWithoutChanges = false;
+        }
+
+        if (userDto.TaxIdNumber?.Length > 1)
+        {
+            user.TaxIdNumber = userDto.TaxIdNumber;
+            isUserWithoutChanges = false;
+        }
+
+        if (isUserWithoutChanges)
+        {
+            return false;
+        }
+
+        var numberRecordUpdated = await userRepository.Update(user);
+
+        if (numberRecordUpdated != 1)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

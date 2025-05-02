@@ -2,6 +2,7 @@
 using RentalCarsWithRepositoryDesignPattern.Application.IRepositories;
 using RentalCarsWithRepositoryDesignPattern.Application.IServices;
 using RentalCarsWithRepositoryDesignPattern.Domain.Data;
+using RentalCarsWithRepositoryDesignPattern.Infrastructure.Repositories;
 
 namespace RentalCarsWithRepositoryDesignPattern.Application.Services;
 
@@ -30,5 +31,23 @@ public class RentalService(IRepositoryBase<Rental> rentalRepository) : IRentalSe
     {
         var listRentalCars = await rentalRepository.GetAll();
         return listRentalCars;
+    }
+
+    public async Task<bool> Delete(long id)
+    {
+        var car = await rentalRepository.GetById(id);
+        if (car is null)
+        {
+            return false;
+        }
+
+        var numberRecordDeleted = await rentalRepository.Delete(id);
+
+        if (numberRecordDeleted != 1)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -4,24 +4,21 @@ using RentalCarsWithRepositoryDesignPattern.Infrastructure.Context;
 
 namespace RentalCarsWithRepositoryDesignPattern.Infrastructure.Repositories;
 
-public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
+public abstract class RepositoryBase<T>(RentalCarContext rentalCarContext) : IRepositoryBase<T> where T : class
 {
-    public RentalCarContext Context = null;
-    public DbSet<T>? Table = null;
-    protected RepositoryBase(RentalCarContext rentalCarContext)
-    {
-        Context = rentalCarContext;
-        Table = rentalCarContext.Set<T>();
-    }
+    public RentalCarContext Context = rentalCarContext;
+    public DbSet<T> Table = rentalCarContext.Set<T>();
 
-    public bool Delete(long id)
+    public async Task<int> Delete(long id)
     {
-        T existing = Table.Find(id);
+        T existing = await Table.FindAsync(id);
+
         if (Table.Remove(existing) is not null)
         {
-            return true;
+            var entitiesDeleted = await Context.SaveChangesAsync();
+            return entitiesDeleted;
         }
-        return false;
+        return 0;
     }
 
     public async Task<IEnumerable<T>> GetAll()
@@ -29,10 +26,11 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         return await Table.ToListAsync();
     }
 
-    public T GetById(long id)
+    public async Task<T> GetById(long id)
     {
-        return Table.Find(id);
+        return await Table.FindAsync(id);
     }
+
     public async Task<int> Insert(T item)
     {
         ArgumentNullException.ThrowIfNull(item);
@@ -40,17 +38,18 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         var entitiesAdded = await Context.SaveChangesAsync();
         return entitiesAdded;
     }
-    public bool Update(T item)
+    public async Task<int> Update(T item)
     {
         try
         {
             Table.Attach(item);
             Context.Entry(item).State = EntityState.Modified;
-            return true;
+            var entitiesAdded = await Context.SaveChangesAsync();
+            return 1;
         }
         catch
         {
-            return false;
+            return 0;
         }
     }
 }
